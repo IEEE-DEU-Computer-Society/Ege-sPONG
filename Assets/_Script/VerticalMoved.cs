@@ -17,7 +17,7 @@ public class VerticalMoved : MonoBehaviour
     void Update()
     {
 
-
+    
 
     }
 
@@ -43,7 +43,7 @@ public class VerticalMoved : MonoBehaviour
 
 
 
-
+        
 
 
 

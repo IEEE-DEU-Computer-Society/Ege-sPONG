@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
 
-    public float speed = 25;
+    public float speed = 5;
     private bool ısGameStarted = true;
     public int set;
     void Start()
@@ -25,7 +26,7 @@ public class Ball : MonoBehaviour
 
     public void randomTrans() //Random Start Func
     {
-        
+        speed = 5;
         int randTrans = Random.Range(1, 3);
         switch (randTrans)
         {
@@ -45,7 +46,8 @@ public class Ball : MonoBehaviour
         if (other.gameObject.tag == "Kale")
         {
             GetComponent<Transform>().position = new Vector2(0, 0);
-            randomTrans();
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            Invoke("randomTrans",0.5f);
         }
 
         if (other.gameObject.name == "Right Triggered")
@@ -60,7 +62,7 @@ public class Ball : MonoBehaviour
         GameManager.Class.UpdateScore(set);
         
     }
-
+        
 
     
     
@@ -72,12 +74,14 @@ public class Ball : MonoBehaviour
            float y = BounceMath(transform.position, collision.transform.position, collision.collider.bounds.size);
            Vector2 yon = new Vector2(1, y).normalized;
            GetComponent<Rigidbody2D>().velocity = yon*speed;
+           speed += 1;
         }
         if (collision.gameObject.name == "Right Racket")
         {
             float y = BounceMath(transform.position, collision.transform.position, collision.collider.bounds.size);
             Vector2 yon = new Vector2(-1, y).normalized;
             GetComponent<Rigidbody2D>().velocity = yon*speed;
+            speed += 1;
         }
            
         
@@ -94,7 +98,7 @@ public class Ball : MonoBehaviour
     {
         if (GameManager.Class.Key == true && ısGameStarted == true)
         {
-            randomTrans();
+           Invoke("randomTrans",1.5f); 
             ısGameStarted = false;
         }
          

@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Unity.UI;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 public class GameManager : MonoBehaviour
 {
-
+    
     public static GameManager Class = null;
     
        public bool Key = false;
@@ -51,7 +53,12 @@ public class GameManager : MonoBehaviour
                 sagSkor.text = skorDegerR.ToString();
                 break;
         }
-
+    
     }
 
+    private void Update()
+    {
+        if (skorDegerL == 5 || skorDegerR == 5)
+            SceneManager.LoadScene(0);
+    }
 }
