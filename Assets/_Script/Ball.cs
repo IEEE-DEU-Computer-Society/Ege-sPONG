@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
-
+    public Rigidbody2D rigid;
     public float speed = 5;
     private bool ısGameStarted = true;
     public int set;
@@ -31,10 +31,10 @@ public class Ball : MonoBehaviour
         switch (randTrans)
         {
             case 1:
-                GetComponent<Rigidbody2D>().velocity = Vector2.right * speed;
+                rigid.velocity = Vector2.right * speed;
                 break;
             case 2:
-                GetComponent<Rigidbody2D>().velocity = Vector2.left * speed;
+                rigid.velocity = Vector2.left * speed;
                 break;
         }
         
@@ -46,7 +46,7 @@ public class Ball : MonoBehaviour
         if (other.gameObject.tag == "Kale")
         {
             GetComponent<Transform>().position = new Vector2(0, 0);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            rigid.velocity = new Vector2(0, 0);
             Invoke("randomTrans",0.5f);
         }
 
@@ -71,16 +71,16 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.name == "Left Racket")
         {
-           float y = BounceMath(transform.position, collision.transform.position, collision.collider.bounds.size);
+           float y = BounceMath(transform.position, collision.transform.position, collision.collider.bounds.size);                                                                                                                  //MENTAL SORUNLARIM VAR LÜTFEN YARDIM EDİN :(
            Vector2 yon = new Vector2(1, y).normalized;
-           GetComponent<Rigidbody2D>().velocity = yon*speed;
+           rigid.velocity = yon*speed;
            speed += 1;
         }
         if (collision.gameObject.name == "Right Racket")
         {
-            float y = BounceMath(transform.position, collision.transform.position, collision.collider.bounds.size);
+            float y = BounceMath(transform.position, collision.transform.position, collision.collider.bounds.size);                                                         // KONYA SİVAS ARASI PASİF ARIYORUM
             Vector2 yon = new Vector2(-1, y).normalized;
-            GetComponent<Rigidbody2D>().velocity = yon*speed;
+            rigid.velocity = yon*speed;
             speed += 1;
         }
            
